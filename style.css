@@ -59,9 +59,3 @@ body {
 .back {
     transform: rotateY(180deg);
   }
-  .card:hover .back{
-    transform: rotateY(0deg);
-  }
-  .card:hover .front{
-    transform: rotateY(-180deg);
-  }
