@@ -59,3 +59,9 @@ body {
 .back {
     transform: rotateY(180deg);
   }
+  .rodarprafrente{
+    transform: rotateY(0deg);
+  }
+  .rodarpratras{
+    transform: rotateY(-180deg);
+  } 
