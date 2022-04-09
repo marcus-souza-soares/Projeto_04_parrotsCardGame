@@ -91,17 +91,20 @@ function errar() {
  function verificar() {
     if (parrotsSelecionados[0].innerHTML !== parrotsSelecionados[1].innerHTML){
         errar();
-        parrotsSelecionados = [];
+        
         click = 0;
+        
     
     } else if (parrotsSelecionados[0].innerHTML === parrotsSelecionados[1].innerHTML){
-        parrotsSelecionados = [];
+        
         click = 0;
+
     }
     if (document.querySelectorAll(".front.face.rodarpratras").length == qntCartas){
         alert(`Parabéns, você acertou em ${cont} passos e ${contador} segundos!`);
         clearInterval(myinterval);
     }
+    parrotsSelecionados = [];
  }
 
 // Esta função pode ficar separada do código acima, onde você preferir
