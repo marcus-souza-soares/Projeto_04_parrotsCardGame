@@ -6,6 +6,8 @@ let parrotBack;
 let parrotFront;
 let cont = 0;
 let contador = 0;
+let myinterval;
+let click = 0;
 //QUANTIDADE DE JOGADAS
 let qntCartas = Number(prompt("Com quantas cartas quer jogar. Escolher entre 4 a 14 cartas!"));
 
@@ -23,57 +25,10 @@ while (repetir === true){
         repetir = true;
     }
 }
-// Jogo iniciado
-setTimeout(jogar,200);
-
- function parrotClicado(elemento) {
-    cont ++;
-    parrotBack = document.querySelector("#"+elemento.id+" .back.face");
-    parrotBack.classList.add("rodarprafrente");
-    parrotFront = document.querySelector("#"+elemento.id+" .front.face");
-    parrotFront.classList.add("rodarpratras");
-    parrotsSelecionados.push(elemento);
-    if (parrotsSelecionados.length == 2){
-        if (parrotsSelecionados[0].id != parrotsSelecionados[1].id){
-            setTimeout(verificar,1000);
-        } else {
-            parrotsSelecionados = parrotsSelecionados.pop();
-        }
-    }
- }
-function errar() {
-    for (i = 0; i < parrotsSelecionados.length; i++){
-        parrotBack = document.querySelector("#"+ parrotsSelecionados[i].id + " .back.face");
-        parrotBack.classList.remove("rodarprafrente");
-        parrotFront = document.querySelector("#"+ parrotsSelecionados[i].id + " .front.face");
-        parrotFront.classList.remove("rodarpratras");   
-    }
-   
- }
-
- function verificar() {
-    if (parrotsSelecionados[0].innerHTML !== parrotsSelecionados[1].innerHTML){
-        errar();
-        parrotsSelecionados = [];
-    
-    } else if (parrotsSelecionados[0].innerHTML === parrotsSelecionados[1].innerHTML){
-        parrotsSelecionados = [];
-    }
-    if (document.querySelectorAll(".front.face.rodarpratras").length == qntCartas){
-        alert(`Parabéns, você acertou em ${cont} passos e ${contador} segundos!`);
-    }
- }
-
-// Esta função pode ficar separada do código acima, onde você preferir
-function comparador() { 
-	return Math.random() - 0.5; 
-}
-
-//funcao do contador 
-
 function contar() {
     document.querySelector(".contador .segundos").innerHTML = contador;
-    setInterval(incrementar,1000);
+    myinterval = setInterval(incrementar,1000);
+    myinterval;
 
 }
 function incrementar() {
@@ -82,6 +37,7 @@ function incrementar() {
 }
 contar();
 
+// Jogo iniciado
 function jogar() {
 
     const cartas = document.querySelector(".cards");
@@ -102,3 +58,59 @@ function jogar() {
     </div>`
     }
 }
+setTimeout(jogar,200);
+
+ function parrotClicado(elemento) {
+    if (click < 2){
+        cont ++;
+        click ++;
+        parrotBack = document.querySelector("#"+elemento.id+" .back.face");
+        parrotBack.classList.add("rodarprafrente");
+        parrotFront = document.querySelector("#"+elemento.id+" .front.face");
+        parrotFront.classList.add("rodarpratras");
+        parrotsSelecionados.push(elemento);
+    } else {
+        click = 0;
+    }
+    if (parrotsSelecionados.length == 2){
+        if (parrotsSelecionados[0].id != parrotsSelecionados[1].id){
+            setTimeout(verificar,1000);
+        }
+    }
+ }
+function errar() {
+    for (i = 0; i < parrotsSelecionados.length; i++){
+        parrotBack = document.querySelector("#"+ parrotsSelecionados[i].id + " .back.face");
+        parrotBack.classList.remove("rodarprafrente");
+        parrotFront = document.querySelector("#"+ parrotsSelecionados[i].id + " .front.face");
+        parrotFront.classList.remove("rodarpratras");   
+    }
+   
+ }
+
+ function verificar() {
+    if (parrotsSelecionados[0].innerHTML !== parrotsSelecionados[1].innerHTML){
+        errar();
+        parrotsSelecionados = [];
+        click = 0;
+    
+    } else if (parrotsSelecionados[0].innerHTML === parrotsSelecionados[1].innerHTML){
+        parrotsSelecionados = [];
+        click = 0;
+    }
+    if (document.querySelectorAll(".front.face.rodarpratras").length == qntCartas){
+        alert(`Parabéns, você acertou em ${cont} passos e ${contador} segundos!`);
+        clearInterval(myinterval);
+    }
+ }
+
+// Esta função pode ficar separada do código acima, onde você preferir
+function comparador() { 
+	return Math.random() - 0.5; 
+}
+
+//funcao do contador 
+
+
+
+
