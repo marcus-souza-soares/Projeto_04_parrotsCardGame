@@ -5,6 +5,7 @@ let parrotsSelecionados = [];
 let parrotBack;
 let parrotFront;
 let cont = 0;
+let contador = 0;
 //QUANTIDADE DE JOGADAS
 let qntCartas = Number(prompt("Com quantas cartas quer jogar. Escolher entre 4 a 14 cartas!"));
 
@@ -34,9 +35,9 @@ setTimeout(jogar,200);
     parrotsSelecionados.push(elemento);
     if (parrotsSelecionados.length == 2){
         if (parrotsSelecionados[0].id != parrotsSelecionados[1].id){
-            setTimeout(verificar,800);
+            setTimeout(verificar,1000);
         } else {
-            parrotsSelecionados.pop();
+            parrotsSelecionados = parrotsSelecionados.pop();
         }
     }
  }
@@ -59,7 +60,7 @@ function errar() {
         parrotsSelecionados = [];
     }
     if (document.querySelectorAll(".front.face.rodarpratras").length == qntCartas){
-        alert(`Parabéns, você acertou em ${cont} passos.`);
+        alert(`Parabéns, você acertou em ${cont} passos e ${contador} segundos!`);
     }
  }
 
@@ -68,6 +69,18 @@ function comparador() {
 	return Math.random() - 0.5; 
 }
 
+//funcao do contador 
+
+function contar() {
+    document.querySelector(".contador .segundos").innerHTML = contador;
+    setInterval(incrementar,1000);
+
+}
+function incrementar() {
+    contador ++;
+    document.querySelector(".contador .segundos").innerHTML = contador;
+}
+contar();
 
 function jogar() {
 

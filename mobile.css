@@ -1,0 +1,8 @@
+.cards {
+    flex-direction: column;
+    width: auto;
+}
+.topo h1 {
+    text-align: center;
+    font-size: 36px;
+}
