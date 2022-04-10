@@ -40,14 +40,18 @@ body {
     font-size: 56px;
 }
 .cards {
+    padding-top: 30px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-   /* align-items: center;*/
+    align-items: center;
     flex-wrap: wrap;
     max-width: 1280px;
     width: auto;
     height: auto;
+    background-color: rgb(45, 227, 164);
+    border-radius: 15px;
+    box-shadow: 5px 5px 3px black;
 }
 .card {
     position: relative;

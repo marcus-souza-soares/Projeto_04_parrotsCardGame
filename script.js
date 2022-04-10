@@ -95,11 +95,10 @@ function errar() {
         click = 0;
         
     
-    } else if (parrotsSelecionados[0].innerHTML === parrotsSelecionados[1].innerHTML){
-        
+    } else {
         click = 0;
-
     }
+
     if (document.querySelectorAll(".front.face.rodarpratras").length == qntCartas){
         alert(`Parabéns, você acertou em ${cont} passos e ${contador} segundos!`);
         clearInterval(myinterval);
