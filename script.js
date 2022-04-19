@@ -1,7 +1,6 @@
 
 let listaGifs = ['imagens/bobrossparrot.gif', 'imagens/bobrossparrot.gif', 'imagens/explodyparrot.gif', 'imagens/explodyparrot.gif', 'imagens/fiestaparrot.gif', 'imagens/fiestaparrot.gif', 'imagens/metalparrot.gif', 'imagens/metalparrot.gif', 'imagens/revertitparrot.gif', 'imagens/revertitparrot.gif', 'imagens/tripletsparrot.gif', 'imagens/tripletsparrot.gif', 'imagens/unicornparrot.gif', 'imagens/unicornparrot.gif'];
 let repetir = true;
-let parrotsSelecionados = [];
 let parrotBack;
 let parrotFront;
 let primeiraCarta;
@@ -59,11 +58,14 @@ function jogar() {
 setTimeout(jogar,200);
 
  function parrotClicado(elemento) {
-    if (elemento === undefined && cont === 0){
+    if (primeiraCarta === undefined && cont === 0){
         contar();
     }
 
-    if (parrotBack.classList.contains("rodarprafrente") || segundaCarta != undefined){
+    if (elemento.classList.contains("virado") || segundaCarta !== undefined){
+        return;
+    }
+    if (primeiraCarta !== undefined && segundaCarta !== undefined){
         return;
     }
 
@@ -75,8 +77,9 @@ setTimeout(jogar,200);
         primeiraCarta = elemento;
     } else {
         segundaCarta = elemento;
-        if (primeiraCarta.innerHTML == segundaCarta.innerHTML){
+        if (primeiraCarta.innerHTML === segundaCarta.innerHTML){
             verificar();
+            resetarCartas();
         } else {
             setTimeout(errar,1000);
         }
@@ -100,19 +103,23 @@ setTimeout(jogar,200);
     // }
  }
 function errar() {
-    for (i = 0; i < parrotsSelecionados.length; i++){
-        elemento.classList.remove("virado");  
-    }
-   
- }
+    
+    primeiraCarta.classList.remove("virado");
+    segundaCarta.classList.remove("virado"); 
+    resetarCartas();
+}
+function resetarCartas() {
+  primeiraCarta = undefined;
+  segundaCarta = undefined;
+}
+ 
 
  function verificar() {
 
-    if (document.querySelectorAll(".front.face.rodarpratras").length == qtdCartas){
+    if (document.querySelectorAll(".virado").length == qtdCartas){
         alert(`Parabéns, você acertou em ${cont} passos e ${contador} segundos!`);
         clearInterval(myinterval);
     }
-    parrotsSelecionados = [];
  }
 
 // Esta função pode ficar separada do código acima, onde você preferir
