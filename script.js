@@ -11,7 +11,7 @@ let contador = 0;
 let myinterval;
 let click = 0;
 //QUANTIDADE DE JOGADAS
-let qntCartas = Number(prompt("Com quantas cartas quer jogar. Escolher entre 4 a 14 cartas!"));
+let qtdCartas = Number(prompt("Com quantas cartas quer jogar. Escolher entre 4 a 14 cartas!"));
 
 //definido se será possível jogar...
 while (
