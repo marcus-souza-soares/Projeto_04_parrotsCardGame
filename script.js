@@ -4,6 +4,8 @@ let repetir = true;
 let parrotsSelecionados = [];
 let parrotBack;
 let parrotFront;
+let primeiraCarta;
+let segundaCarta;
 let cont = 0;
 let contador = 0;
 let myinterval;
@@ -12,19 +14,15 @@ let click = 0;
 let qntCartas = Number(prompt("Com quantas cartas quer jogar. Escolher entre 4 a 14 cartas!"));
 
 //definido se será possível jogar...
-while (repetir === true){
-    repetir = false;
-    if (qntCartas % 2 == 1){
-        repetir = true;
-        qntCartas = Number(prompt("Com quantas cartas quer jogar. Escolher entre 4 a 14 cartas!"));
-    } if (qntCartas < 4){
-        qntCartas = Number(prompt("Com quantas cartas quer jogar. Escolher entre 4 a 14 cartas!"));
-        repetir = true;
-    } if (qntCartas > 14){
-        qntCartas = Number(prompt("Com quantas cartas quer jogar. Escolher entre 4 a 14 cartas!"));
-        repetir = true;
-    }
+while (
+    isNaN(qtdCartas) ||
+    qtdCartas < 4 ||
+    qtdCartas > 14 ||
+    qtdCartas % 2 === 1
+  ) {
+    qtdCartas = parseInt(prompt("Com quantas cartas você quer jogar?"));
 }
+
 function contar() {
     document.querySelector(".contador .segundos").innerHTML = contador;
     myinterval = setInterval(incrementar,1000);
@@ -35,7 +33,7 @@ function incrementar() {
     contador ++;
     document.querySelector(".contador .segundos").innerHTML = contador;
 }
-contar();
+
 
 // Jogo iniciado
 function jogar() {
@@ -61,22 +59,48 @@ function jogar() {
 setTimeout(jogar,200);
 
  function parrotClicado(elemento) {
-    if (click < 2){
-        cont ++;
-        click ++;
-        parrotBack = document.querySelector("#"+elemento.id+" .back.face");
-        parrotBack.classList.add("rodarprafrente");
-        parrotFront = document.querySelector("#"+elemento.id+" .front.face");
-        parrotFront.classList.add("rodarpratras");
-        parrotsSelecionados.push(elemento);
-    } else {
-        click = 0;
+    if (elemento === undefined && cont === 0){
+        contar();
     }
-    if (parrotsSelecionados.length == 2){
-        if (parrotsSelecionados[0].id != parrotsSelecionados[1].id){
-            setTimeout(verificar,1000);
+
+    if (parrotBack.classList.contains("rodarprafrente") || segundaCarta != undefined){
+        return;
+    }
+
+    cont ++;
+
+    parrotBack = document.querySelector("#"+elemento.id+" .back.face");
+    parrotBack.classList.add("rodarprafrente");
+    parrotFront = document.querySelector("#"+elemento.id+" .front.face");
+    parrotFront.classList.add("rodarpratras");
+
+    if (primeiraCarta === undefined) {
+        primeiraCarta = elemento;
+    } else {
+        segundaCarta = elemento;
+        if (primeiraCarta.innerHTML == segundaCarta.innerHTML){
+            verificar();
+        } else {
+            setTimeout(errar,1000);
         }
     }
+
+    // if (click < 2){
+        
+    //     click ++;
+    //     parrotBack = document.querySelector("#"+elemento.id+" .back.face");
+    //     parrotBack.classList.add("rodarprafrente");
+    //     parrotFront = document.querySelector("#"+elemento.id+" .front.face");
+    //     parrotFront.classList.add("rodarpratras");
+    //     parrotsSelecionados.push(elemento);
+    // } else {
+    //     click = 0;
+    // }
+    // if (parrotsSelecionados.length == 2){
+    //     if (parrotsSelecionados[0].id != parrotsSelecionados[1].id){
+    //         setTimeout(errar,1000);
+    //     }
+    // }
  }
 function errar() {
     for (i = 0; i < parrotsSelecionados.length; i++){
@@ -89,15 +113,6 @@ function errar() {
  }
 
  function verificar() {
-    if (parrotsSelecionados[0].innerHTML !== parrotsSelecionados[1].innerHTML){
-        errar();
-        
-        click = 0;
-        
-    
-    } else {
-        click = 0;
-    }
 
     if (document.querySelectorAll(".front.face.rodarpratras").length == qntCartas){
         alert(`Parabéns, você acertou em ${cont} passos e ${contador} segundos!`);
