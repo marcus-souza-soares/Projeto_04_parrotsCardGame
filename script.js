@@ -39,18 +39,18 @@ function incrementar() {
 function jogar() {
 
     const cartas = document.querySelector(".cards");
-    if (qntCartas < 14){
-        listaGifs = listaGifs.splice(0, qntCartas);
+    if (qtdCartas < 14){
+        listaGifs = listaGifs.splice(0, qtdCartas);
     }
     listaGifs.sort(comparador); // Após esta linha, a minhaArray estará embaralhada
 
-    for (i = 0; i < qntCartas; i++) {
+    for (i = 0; i < qtdCartas; i++) {
         cartas.innerHTML += `
     <div class="card" id="n${i+1}" onclick="parrotClicado(this)">
-        <div class="front face">
+        <div class="front face rodarpratras">
             <img src="imagens/front.png" alt="">
         </div>
-        <div class="back face">
+        <div class="back face rodarprafrente">
             <img src=${listaGifs[i]} alt="">
         </div>
     </div>`
@@ -69,10 +69,7 @@ setTimeout(jogar,200);
 
     cont ++;
 
-    parrotBack = document.querySelector("#"+elemento.id+" .back.face");
-    parrotBack.classList.add("rodarprafrente");
-    parrotFront = document.querySelector("#"+elemento.id+" .front.face");
-    parrotFront.classList.add("rodarpratras");
+    elemento.classList.add("virado");
 
     if (primeiraCarta === undefined) {
         primeiraCarta = elemento;
@@ -104,17 +101,14 @@ setTimeout(jogar,200);
  }
 function errar() {
     for (i = 0; i < parrotsSelecionados.length; i++){
-        parrotBack = document.querySelector("#"+ parrotsSelecionados[i].id + " .back.face");
-        parrotBack.classList.remove("rodarprafrente");
-        parrotFront = document.querySelector("#"+ parrotsSelecionados[i].id + " .front.face");
-        parrotFront.classList.remove("rodarpratras");   
+        elemento.classList.remove("virado");  
     }
    
  }
 
  function verificar() {
 
-    if (document.querySelectorAll(".front.face.rodarpratras").length == qntCartas){
+    if (document.querySelectorAll(".front.face.rodarpratras").length == qtdCartas){
         alert(`Parabéns, você acertou em ${cont} passos e ${contador} segundos!`);
         clearInterval(myinterval);
     }

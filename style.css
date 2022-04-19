@@ -82,9 +82,9 @@ body {
 .back {
     transform: rotateY(180deg);
   }
-  .rodarprafrente{
+  .virado .rodarprafrente{
     transform: rotateY(0deg);
   }
-  .rodarpratras{
+  .virado .rodarpratras{
     transform: rotateY(-180deg);
   } 
